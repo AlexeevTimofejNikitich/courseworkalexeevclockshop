@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <form method="post" action="" class="form-container">
+        <h1>registration</h1>
+        {{ form.hidden_tag() }} <!-- скрытое поле для генерации csrf токена (случайное число установленное сервером в рамках одной сессии) -->
+        {{ form.first_name }}
+        {{ form.last_name }}
+        {{ form.email }}
+        {{ form.password }}
+        {{ form.submit }}
+    </form>
+    <a href="{{url_for('login')}}" class="link-container">login is here</a>
+</div>
+{% endblock %}

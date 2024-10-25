@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block header_right %}
+<div class="header-right">
+    <a href="{{ url_for('mainpage') }}" class="cart-button">Главный экран</a>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="admin-panel">
+    <h1>Панель администратора</h1>
+    <a href="{{ url_for('add_product') }}" class="btn btn-primary">Добавить товар</a>
+    <h2>Список товаров</h2>
+    <ul>
+        {% for product in products %}
+        <li>
+            {{ product.name }} - {{ product.category }} - {{ product.price }}
+            <a href="{{ url_for('edit_product', product_id=product.id) }}" class="btn btn-secondary">Редактировать</a>
+            <form action="{{ url_for('delete_product', product_id=product.id) }}" method="post" style="display:inline;">
+                <button type="submit" class="btn btn-danger">Удалить</button>
+            </form>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}

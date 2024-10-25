@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    {% block head %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> {% if title %}
+        {{ title }}
+        {% else %}
+        luxury watches
+        {% endif %}
+    </title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    {% endblock %}
+</head>
+<body>
+    <div class="page-container">
+        <header>
+            <div class="container header-container">
+                {% block header_left %}
+                <!--
+                <div class="header-left">
+                    <img src="{{ url_for('static', filename='images/user-logo.jpg') }}" alt="user logo">
+                    <span class="username">
+                        {% if current_user.first_name != None %}
+                            {{ current_user.first_name }} {{ current_user.last_name }}
+                        {% else %}
+                            little (l)user
+                        {% endif %}
+                    </span>
+                </div>
+                -->
+                {% endblock %}
+                <div class="header-center">
+                    <img src="{{ url_for('static', filename='images/logo-high-quality.png') }}" alt="brand logo">
+                </div>
+                {% block header_right %}
+                <!--
+                <div class="header-right">
+                    <a href="{{ url_for('cart') }}" class="cart-button">Корзина</a>
+                </div>
+                -->
+                {% endblock %}
+            </div>
+        </header>
+
+        <main>
+            {% block additional_sections %}
+            {% endblock %}
+            {% block content %}
+            <!-- here is a content -->
+            {% endblock %}
+        </main>
+
+        <footer>
+            <div class="container">
+                <p>&copy; 2024 Moscow</p>
+            </div>
+        </footer>
+    </div>
+
+</body>
+</html>

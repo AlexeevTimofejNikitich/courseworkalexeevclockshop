@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block header_right %}
+<div class="header-right">
+    <a href="{{ url_for('mainpage') }}" class="cart-button">Главный экран</a>
+</div>
+{% endblock %}
+
+{% block header_left %}
+<div class="header-left">
+    <img src="{{ url_for('static', filename='images/user-logo.png') }}" alt="user logo">
+    <span class="username">
+        {% if current_user.first_name != None %}
+            {{ current_user.first_name }} {{ current_user.last_name }}
+        {% else %}
+            little (l)user
+        {% endif %}
+    </span>     
+</div>
+{% endblock %}
+
+{% block additional_sections %}
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="product-details">
+        <div class="product-image">
+            <img src="{{ url_for('static', filename=product.photo) }}" alt="{{ product.name }}">
+        </div>
+        <div class="product-info">
+            <h2>{{ product.name }}</h2>
+            <div class="description">
+                <p>{{ product.description }}</p>
+            </div>
+            <div class="options">
+                <div class="left-options">
+                    <div class="size-selection">
+                        <form method="POST" action="{{ url_for('good', product_id=product.id) }}">
+                            <input type="number" name="quantity" value="1" min="1" max="99">
+                            <input type="submit" value="Добавить в корзину">
+                        </form>
+                    </div>
+                </div>
+                <div class="right-options">
+                    <div class="price-add-to-cart">
+                        <div class="cost">
+                            <span class="price">{{ product.price }} рублей за товар</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

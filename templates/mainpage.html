@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+{% block header_right %}
+<div class="header-right">
+    <a href="{{ url_for('mainpage') }}" class="cart-button">Главный экран</a>
+    <a href="{{ url_for('order') }}" class="cart-button">Заказы</a>
+</div>
+{% endblock %}
+
+{% block header_left %}
+<div class="header-left">
+    <a href="{{ url_for('logout') }}" class="header-button">Выход</a>
+    <a href="{{ url_for('login') }}" class="header-button">Логин</a>
+    {% if current_user.is_authenticated and current_user.is_admin %}
+        <a href="{{ url_for('admin_personal') }}" class="header-button">Панель администратора</a>
+    {% endif %}
+    <img src="{{ url_for('static', filename='images/user-logo.png') }}" alt="user logo">
+    <span class="username">
+        {% if current_user.is_authenticated %}
+            {{ current_user.first_name }} {{ current_user.last_name }}
+        {% else %}
+            little (l)user
+        {% endif %}
+    </span>
+</div>
+{% endblock %}
+
+
+{% block additional_sections %}
+<div class="additional-sections">
+    <div class="additional-section">
+        <a href="{{ url_for('category', category_name='Richard Mille') }}" class="additional-button {% if current_category == 'Richard Mille' %}active{% endif %}">Richard Mille</a>
+    </div>
+    <div class="additional-section">
+        <a href="{{ url_for('category', category_name='Rolex') }}" class="additional-button {% if current_category == 'Rolex' %}active{% endif %}">Rolex</a>
+    </div>
+    <div class="additional-section">
+        <a href="{{ url_for('category', category_name='Patek Philippe') }}" class="additional-button {% if current_category == 'Patek Philippe' %}active{% endif %}">Patek Philippe</a>
+    </div>
+</div>
+{% endblock %}
+
+
+{% block content %}
+<div class="container">
+    <div class="main-banner">
+        <img src="{{ url_for('static', filename='images/banner.jpg') }}" alt="main banner">
+    </div>
+    <div class="row">
+        {% for product in products %}
+        <section>
+            <h2>{{ product.name }}</h2>
+            <img src="{{ url_for('static', filename=product.photo) }}" alt="{{ product.name }}" width="300" height="300">
+            <!-- <p>{{ product.description }}</p> -->
+            <a href="{{ url_for('good', product_id=product.id) }}" class="button">О товаре</a>
+            <!-- <a href="{{ url_for('good', product_id=product.id) }}" class="button">Добавить в корзину</a> -->
+        </section>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

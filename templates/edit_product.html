@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block header_right %}
+<div class="header-right">
+    <a href="{{ url_for('mainpage') }}" class="cart-button">Главный экран</a>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="edit-product-container">
+    <h1>Редактировать товар</h1>
+    <form method="POST">
+        {{ form.hidden_tag() }}
+        <div class="form-group">
+            {{ form.name.label }} {{ form.name(class="form-control") }}
+        </div>
+        <div class="form-group">
+            {{ form.description.label }} {{ form.description(class="form-control") }}
+        </div>
+        <div class="form-group">
+            {{ form.photo.label }} {{ form.photo(class="form-control") }}
+        </div>
+        <div class="form-group">
+            {{ form.category.label }} {{ form.category(class="form-control") }}
+        </div>
+        <div class="form-group">
+            {{ form.price.label }} {{ form.price(class="form-control") }}
+        </div>
+        <button type="submit" class="btn btn-primary">Сохранить изменения</button>
+    </form>
+</div>
+{% endblock %}

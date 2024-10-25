@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block title %}Заказы{% endblock %}
+
+{% block header_left %}
+<div class="header-left">
+    <img src="{{ url_for('static', filename='images/user-logo.png') }}" alt="user logo">
+    <span class="username">
+        {% if current_user.first_name %}
+            {{ current_user.first_name }} {{ current_user.last_name }}
+        {% else %}
+            little (l)user
+        {% endif %}
+    </span>
+</div>
+{% endblock %}
+
+{% block header_right %}
+<div class="header-right">
+    <a href="{{ url_for('mainpage') }}" class="cart-button">Главный экран</a>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="orders">
+        {% for order in orders %}
+        <div class="order-item">
+            <h3 class="item-name">Заказ #{{ order.id }}</h3>
+            <p class="item-date">Дата заказа: {{ order.order_date.strftime('%d.%m.%Y') }}</p>
+            <p class="item-status">Статус: {{ order.status }}</p>
+            <p class="item-price">Стоимость заказа: {{ order.total_cost }} руб.</p>
+            <ul>
+                {% for item in order.order_items %}
+                <li>{{ products[item.product_id].name if products[item.product_id] else 'Товар не найден' }}, Количество: {{ item.quantity }}, Цена: {{ item.price_at_order }} руб.</li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

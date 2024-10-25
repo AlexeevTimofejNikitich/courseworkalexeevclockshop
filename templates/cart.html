@@ -1,0 +1,130 @@
+{% extends "base.html" %}
+
+{% block header_left %}
+<div class="header-left">
+    <a href="{{ url_for('logout') }}" class="header-button">Выход</a>
+    <img src="{{ url_for('static', filename='images/user-logo.png') }}" alt="user logo">
+    <span class="username">
+    {% if current_user.first_name != None %}
+        {{ current_user.first_name }} {{ current_user.last_name }}
+    {% else %}
+        little (l)user
+    {% endif %}
+    </span>
+</div>
+{% endblock %}
+
+{% block header_right %}
+<div class="header-right">
+    <a href="{{ url_for('order') }}" class="cart-button">Заказы</a>
+    <a href="{{ url_for('mainpage') }}" class="cart-button">Главный экран</a>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="cart-items">
+        {% for item in cart_items %}
+        <div class="cart-item">
+            <div class="item-details">
+                <div class="item-image">
+                    <img src="{{ url_for('static', filename=item.image) }}" alt="Product Image">
+                </div>
+                <div class="item-info">
+                    <h3 class="item-name">{{ item.name }}</h3>
+                    <p class="item-quantity">Количество: {{ item.quantity }}</p>
+                    <p class="item-cost">Стоимость: {{ item.price * item.quantity }} рублей</p>
+                </div>
+            </div>
+            <div class="item-actions">
+                <form method="POST" action="{{ url_for('increase_quantity', product_id=item.id) }}">
+                    <button type="submit">+</button>
+                </form>
+                <form method="POST" action="{{ url_for('decrease_quantity', product_id=item.id) }}">
+                    <button type="submit">-</button>
+                </form>
+                <form method="POST" action="{{ url_for('remove_from_cart', product_id=item.id) }}">
+                    <button type="submit">Удалить</button>
+                </form>
+                <a href="{{ url_for('good', product_id=item.id) }}">Подробнее</a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    <div class="total-cost">
+        <p>Итого: {{ total_cost }} рублей</p>
+    </div>
+    <button class="checkout-button" onclick="openModal()">Перейти к оформлению</button>
+    <a href="{{ url_for('order') }}" class="checkout-button">Заказы</a>
+    <a href="#" class="checkout-button" onclick="exportCart()">Экспортировать в CSV</a>
+</div>
+
+<!-- Modal -->
+<div id="checkoutModal" class="modal">
+    <div class="modal-content">
+        <span class="close-button" onclick="closeModal()">&times;</span>
+        <h2>Оформление заказа</h2>
+        <div class="checkout-items">
+            {% for item in cart_items %}
+            <div class="checkout-item">
+                <div class="item-image">
+                    <img src="{{ url_for('static', filename=item.image) }}" alt="Product Image">
+                </div>
+                <div class="item-details">
+                    <h3 class="item-name">{{ item.name }}</h3>
+                    <p class="item-quantity">Количество: {{ item.quantity }}</p>
+                    <p class="item-cost">Стоимость: {{ item.price * item.quantity }} рублей</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="delivery-address">
+            <h3>Адрес доставки</h3>
+            <p>Введите ваш адрес:</p>
+            <input type="text" placeholder="Адрес" id="delivery-address">
+            <p>Срок доставки будет выслан на почту после создания заказа</p>
+        </div>
+        <div class="total-cost">
+            <p>Итого: {{ total_cost }} рублей</p>
+        </div>
+        <form method="POST" action="{{ url_for('create_order') }}">
+            <input type="hidden" name="delivery_address" id="hidden-address">
+            <button type="submit" class="confirm-button">Подтвердить</button>
+        </form>
+    </div>
+</div>
+
+<script>
+function openModal() {
+    document.getElementById("checkoutModal").style.display = "block";
+}
+
+function closeModal() {
+    document.getElementById("checkoutModal").style.display = "none";
+}
+
+function exportCart() {
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', '/export_cart', true);
+    xhr.setRequestHeader('Content-type', 'text/csv');
+    xhr.responseType = 'blob';
+    xhr.onload = function() {
+        if (xhr.status === 200) {
+            var url = window.URL.createObjectURL(xhr.response);
+            var a = document.createElement('a');
+            a.href = url;
+            a.download = 'cart.csv';
+            document.body.appendChild(a);
+            a.click();
+            window.URL.revokeObjectURL(url);
+        }
+    };
+    xhr.send();
+}
+
+document.querySelector('.confirm-button').addEventListener('click', function() {
+    var address = document.getElementById('delivery-address').value;
+    document.getElementById('hidden-address').value = address;
+});
+</script>
+{% endblock %}

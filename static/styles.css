@@ -1,0 +1,362 @@
+/* reset some default browser styles */
+body, h1, h2, h3, p, div, header, footer, main, section {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* base styles */
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    background-color: #fff;
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* page container */
+.page-container {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+main {
+    flex: 1;
+}
+
+/* header styles */
+header {
+    background-color: #000000;
+    color: #fff;
+    padding: 30px 40px; 
+    height: 120px;
+}
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    height: 100%;
+}
+
+.header-left, .header-right, .header-center {
+    display: flex;
+    align-items: center;
+    height: 100%;
+}
+
+.header-center {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.header-left img, .header-right img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.header-center img {
+    max-width: 100%;
+    max-height: 100%;
+    height: auto;
+    width: auto;
+    margin: auto;
+}
+
+.header-left .username, .header-right .cart-button, .header-button {
+    color: #fff;
+    margin-right: 10px;
+}
+
+.header-button, .cart-button {
+    text-decoration: none;
+    background-color: #000;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+.header-button:hover, .cart-button:hover {
+    background-color: #333;
+}
+
+/* main content styles */
+main {
+    margin: 40px 0; 
+}
+
+.main-banner img {
+    width: 90%; 
+    height: auto;
+    display: block;
+    margin: 20px auto; 
+}
+
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: space-between;
+    margin: 0 30px; 
+}
+
+/* section styles */
+section {
+    background-color: #fff;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    flex: 0 0 calc(33.33% - 20px);
+    margin-bottom: 20px;
+    text-align: center;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+section h2 {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+}
+
+section img {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 10px;
+    flex-shrink: 0;
+    object-fit: contain;
+}
+
+.button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #000;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    margin-top: 10px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.button:hover {
+    background-color: #333;
+}
+
+/* footer styles */
+footer {
+    background-color: #000000;
+    color: #fff;
+    text-align: center;
+    padding: 10px 0;
+}
+
+/* additional sections */
+.additional-sections {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 20px;
+}
+
+.additional-button {
+    background-color: #000;
+    color: #fff;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.additional-button:hover {
+    background-color: #333;
+}
+
+.additional-button.active {
+    background-color: #0000a0;
+}
+
+/* product details page styles */
+.product-details {
+    display: flex;
+    gap: 20px;
+}
+
+.product-image img {
+    max-width: 100%;
+    height: auto;
+}
+
+.product-info {
+    flex: 1;
+}
+
+.description, .options, .price-add-to-cart {
+    margin-bottom: 20px;
+}
+
+.size-selection, .color-selection, .cost, .price, .confirm-button {
+    margin-top: 10px;
+}
+
+.color-button {
+    width: 30px;
+    height: 30px;
+    border: none;
+    border-radius: 50%;
+    margin-right: 5px;
+}
+
+.color-button:hover {
+    opacity: 0.8;
+}
+
+/* cart styles */
+.cart-items {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.cart-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #fff;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.item-details {
+    display: flex;
+    gap: 20px;
+}
+
+.item-image img {
+    max-width: 100px;
+    height: auto;
+}
+
+.item-actions button {
+    margin-left: 10px;
+    padding: 5px 10px;
+    background-color: #000;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+}
+
+.item-actions button:hover {
+    background-color: #333;
+}
+
+.checkout-button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #000;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+
+.checkout-button:hover {
+    background-color: #333;
+}
+
+/* modal styles */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+    padding-top: 60px;
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 5% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    border-radius: 10px;
+}
+
+.close-button {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close-button:hover,
+.close-button:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Form container */
+.form-container {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.form-container h1 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* forms and containers */
+.form-container input[type="text"],
+.form-container input[type="email"],
+.form-container input[type="password"],
+.form-container button[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    box-sizing: border-box;
+}
+
+.form-container button[type="submit"] {
+    background-color: #000000;
+    color: #fff;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+}
+
+.form-container button[type="submit"]:hover {
+    background-color: #6e0700;
+}
+
+.link-container {
+    display: block;
+    text-align: center;
+    margin-top: 10px;
+    color: #666;
+}
+
+.link-container:hover {
+    color: #333;
+    text-decoration: underline;
+}
